@@ -1,0 +1,22 @@
+name: 'PR version comment'
+description: 'A Github action that adds a comments to a closed PR with a version number derived from the git commit that merged the PR'
+branding:
+  icon: git-pull-request
+  color: orange
+inputs:
+  token:
+    description: 'Github token used to access the github API. Assign from '
+    required: true
+  body:
+    description: 'Content of the comment to add to a merged pull request. Use {version} to insert the version number.'
+    required: false
+outputs:
+  version:
+    description: 'The version number derived from the current git commit.'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - ${{ inputs.token }}
+  - ${{ inputs.body }}
