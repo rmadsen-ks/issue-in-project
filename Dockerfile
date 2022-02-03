@@ -28,4 +28,4 @@ LABEL com.github.actions.name="issue-in-project"
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="orange"
 
-ENTRYPOINT ["./issue-in-project"]
+ENTRYPOINT ["/app/issue-in-project"]
