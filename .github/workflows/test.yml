@@ -7,6 +7,11 @@ on:
   issues:
     types: [closed]
 
+permissions:
+  contents: read
+  repository-projects: write
+  issues: write
+
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
@@ -16,14 +21,10 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Run action step
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-closed-to-project: AsgerIversen/issue-in-project/1 
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The version is ${{ steps.hello.outputs.version }}"
+          issue-closed-to-column: start

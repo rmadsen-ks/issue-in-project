@@ -9,14 +9,18 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net6.0/issue-in-project.dll",
+            "program": "${workspaceFolder}/bin/Debug/issue-in-project.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
             "env": 
             {
-                "INPUT_TOKEN" : "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"
+                "INPUT_TOKEN" : "",
+                "GITHUB_REPOSITORY" : "AsgerIversen/issue-in-project",
+                "GITHUB_EVENT_NAME" : "issues",
+                "INPUT_ISSUE-CLOSED-TO-PROJECT" : "AsgerIversen/issue-in-project/1",
+                "INPUT_ISSUE-CLOSED-TO-COLUMN": "start"
             }
         },
         {

@@ -8,7 +8,11 @@ inputs:
     description: 'Github token used to access the github API. Assign from '
     required: true
   issue-closed-to-project:
-    description: 'Github token used to access the github API. Assign from '
+    description: 'Owner/Repo/Number of the project to add issues to when they are closed.'
+    required: false
+  issue-closed-to-column:
+    description: 'Name of the column in the project to add issues to when they are closed.'
+    required: false
 outputs:
   version:
     description: 'The version number derived from the current git commit.'
