@@ -9,7 +9,7 @@ abstract class ActionInputs
     protected class ActionInputName : Attribute
     {
         string Name { get; }
-        public CliOptionName(string name)
+        public ActionInputName(string name)
         {
             this.Name = name;
         }
@@ -25,7 +25,7 @@ abstract class ActionInputs
         {
             var attrs = prop.GetCustomAttributesData();
             var inputName = attrs.FirstOrDefault(a => a.AttributeType == typeof(ActionInputName))?.ConstructorArguments[0].Value as String;
-            else if(inputName is not null && Environment.GetEnvironmentVariable("INPUT_" + inputName.ToUpper()) is string val2)
+            if(inputName is not null && Environment.GetEnvironmentVariable("INPUT_" + inputName.ToUpper()) is string val2)
             {
                 prop.SetValue(this, val2);
             }
