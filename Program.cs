@@ -27,7 +27,7 @@ if (Github.Env.EventName == "issues")
     {
         var project = Github.GetProject(inputs.ClosedProject);
         Console.WriteLine($"Adding closed issue '#{e.issue.number}' to project '{project.Name}'");
-        Github.Client.Repository.Project.Card.Create(project.Id, new NewProjectCard(e.issue.number, ProjectCardContentType.Issue));
+        var r = await Github.Client.Repository.Project.Card.Create(project.Id, new NewProjectCard(e.issue.number, ProjectCardContentType.Issue));
     }
 }
 
