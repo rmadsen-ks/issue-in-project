@@ -15,7 +15,8 @@ foreach (DictionaryEntry v in Environment.GetEnvironmentVariables())
     Console.WriteLine($"  {v.Key}={v.Value}");
 Console.WriteLine("::endgroup::");
 
-
+Console.WriteLine("Event json:");
+Console.WriteLine(File.ReadAllText(Github.Env.EventPath));
 
 if (Github.Env.EventName == "issues")
 {

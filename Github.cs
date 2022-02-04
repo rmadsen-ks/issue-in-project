@@ -67,6 +67,10 @@ class GithubEnvironment
     public string Ref => Environment.GetEnvironmentVariable("GITHUB_REF");
     public string EventName => Environment.GetEnvironmentVariable("GITHUB_EVENT_NAME");
     /// <summary>
+    /// The path to the file on the runner that contains the full event webhook payload. For example, /github/workflow/event.json.
+    /// </summary>
+    public string EventPath => Environment.GetEnvironmentVariable("GITHUB_EVENT_PATH");
+    /// <summary>
     /// The branch or tag name that triggered the workflow run. For example, feature-branch-1.
     /// </summary>
     public string RefName => Environment.GetEnvironmentVariable("GITHUB_REF_NAME");
