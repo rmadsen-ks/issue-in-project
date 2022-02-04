@@ -7,11 +7,6 @@ on:
   issues:
     types: [closed]
 
-permissions:
-  contents: read
-  repository-projects: write
-  issues: write
-
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
@@ -27,7 +22,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN }}
           issue-closed-to-project: AsgerIversen/issue-in-project/1 
       # Use the output from the `hello` step
       - name: Get the output time
