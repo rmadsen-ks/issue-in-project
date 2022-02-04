@@ -7,6 +7,8 @@ inputs:
   token:
     description: 'Github token used to access the github API. Assign from '
     required: true
+  issue-closed-to-project:
+    description: 'Github token used to access the github API. Assign from '
 outputs:
   version:
     description: 'The version number derived from the current git commit.'
@@ -14,8 +16,3 @@ outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    token: ${{ inputs.token }}
-  args:
-  - ${{ inputs.token }}
-  - ${{ inputs.body }}

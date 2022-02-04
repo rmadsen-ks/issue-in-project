@@ -2,7 +2,7 @@ using Octokit;
 using System.Collections;
 using System.Diagnostics;
 
-var inputs = new Inputs(args);
+var inputs = new Inputs();
 
 Github.Client.Credentials = new Credentials(inputs.Token);
 
@@ -16,12 +16,15 @@ foreach (DictionaryEntry v in Environment.GetEnvironmentVariables())
 Console.WriteLine("::endgroup::");
 
 
+
+if (Github.Env.EventName == "issues")
+{
+    var project = Github.GetProject(inputs.ClosedProject);
+    Github.Client.Repository.Project.Card.Create(project.Id, new NewProjectCard(1, ProjectCardContentType.Issue));
+}
+
 class Inputs : ActionInputs
 {
-    public string owner { get; set; } = "AsgerIversen";
-    public string reponame { get; set; } = "test";
-    public string token { get; set; } = "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";
-    public string body { get; set; } = "This change is part of version `{version}` or later.";
-
-    public Inputs(string[] args) : base(args) { }
+    [ActionInputName("issue-closed-to-project")]
+    public string ClosedProject {get;set;}
 }

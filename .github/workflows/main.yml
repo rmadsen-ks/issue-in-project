@@ -1,4 +1,11 @@
-on: [push]
+name: Test Action Locally 
+
+on: 
+  push:
+    paths:
+      - '**'
+  issues:
+    types: [closed]
 
 permissions:
   contents: read
@@ -20,7 +27,7 @@ jobs:
         id: hello
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          body: This change is part of version `{version}` or later (custom).
+          issue-closed-to-project: AsgerIversen/issue-in-project/1 
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The version is ${{ steps.hello.outputs.version }}"
