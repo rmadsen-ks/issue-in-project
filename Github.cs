@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using Octokit;
+namespace GithubUtils;
 
 class Github
 {
@@ -15,13 +17,13 @@ class Github
         Client = new GitHubClient(new ProductHeaderValue("issue-in-project"));
     }
 
-    public static GitHubClient Client 
+    public static GitHubClient Client
     {
         get; private set;
     }
 
     private static Repository _Repository;
-    public static Repository Repository 
+    public static Repository Repository
     {
         get
         {
@@ -41,6 +43,12 @@ class Github
         int id = int.Parse(projectName.Split("/")[2]);
         var projects = Github.Client.Repository.Project.GetAllForRepository(owner, repo).Result;
         return projects.FirstOrDefault(p => p.Number == id);
+    }
+
+    public static T GetEvent<T>()
+    {
+        string jsonString = File.ReadAllText(Env.EventPath);
+        return JsonSerializer.Deserialize<T>(jsonString);
     }
 }
 
