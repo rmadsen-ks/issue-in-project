@@ -23,7 +23,7 @@ Console.WriteLine("::endgroup::");
 if (Github.Env.EventName == "issues")
 {
     var e = Github.GetEvent<GithubUtils.Event.IssueEvent>();
-    if (e.action == "closed")
+    if (e.action == "closed" && !String.IsNullOrEmpty(inputs.ClosedProject))
     {
         var project = Github.GetProject(inputs.ClosedProject);
         var issueNumber = e.issue.id;
