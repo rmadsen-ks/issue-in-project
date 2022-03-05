@@ -17,7 +17,7 @@ foreach (DictionaryEntry v in Environment.GetEnvironmentVariables())
 Console.WriteLine("::endgroup::");
 
 Console.WriteLine("::group::Event json:");
-//Console.WriteLine(File.ReadAllText(Github.Env.EventPath));
+Console.WriteLine(File.ReadAllText(Github.Env.EventPath));
 Console.WriteLine("::endgroup::");
 
 if (Github.Env.EventName == "issues")
@@ -26,16 +26,17 @@ if (Github.Env.EventName == "issues")
     if (e.action == "closed")
     {
         var project = Github.GetProject(inputs.ClosedProject);
-        var issueNumber = 1123670529; //e.issue.number
+        var issueNumber = e.issue.id;
         var columns = await Github.Client.Repository.Project.Column.GetAll(project.Id);
         if (columns.FirstOrDefault(c => c.Name.Contains(inputs.ClosedColumn)) is ProjectColumn c)
         {
-            Console.WriteLine($"Adding closed issue '#{issueNumber}' to project '{project.Name}'");
+            Console.WriteLine($"Adding closed issue '#{e.issue.number}' to column '{c.Name}' of project '{project.Name}'");
             var r = await Github.Client.Repository.Project.Card.Create(c.Id, new NewProjectCard(issueNumber, ProjectCardContentType.Issue));
         }
         else
         {
             Console.WriteLine($"::error::Unable to find column '{inputs.ClosedColumn}' in project '{inputs.ClosedProject}'.");
+            Console.WriteLine($"::error::Column names are: {String.Join(", ", columns.Select(cl => cl.Name))}.");
         }
     }
 }
@@ -43,10 +44,10 @@ if (Github.Env.EventName == "issues")
 class Inputs : ActionInputs
 {
     [ActionInputName("issue-closed-to-project")]
-    public string ClosedProject {get;set;}
+    public string ClosedProject { get; set; }
 
     [ActionInputName("issue-closed-to-column")]
     public string ClosedColumn { get; set; }
 
-    
+
 }
