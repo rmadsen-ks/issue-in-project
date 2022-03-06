@@ -1,22 +1,22 @@
-name: 'Issue in Project'
-description: 'A Github action that moves issues in/into projects'
+name: "Issue in Project"
+description: "A Github action that moves issues in/into projects"
 branding:
   icon: layout
   color: orange
 inputs:
   token:
-    description: 'Github token used to access the github API. Assign from '
+    description: "Github token used to access the github API. Assign from "
     required: true
   issue-closed-to-project:
-    description: 'Owner/Repo/Number of the project to add issues to when they are closed.'
+    description: "Owner/Repo/Number of the project to add issues to when they are closed."
     required: false
   issue-closed-to-column:
-    description: 'Name of the column in the project to add issues to when they are closed.'
+    description: "Name of the column in the project to add issues to when they are closed."
     required: false
 outputs:
   version:
-    description: 'The version number derived from the current git commit.'
+    description: "The version number derived from the current git commit."
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"

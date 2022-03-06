@@ -21,13 +21,20 @@ abstract class ActionInputs
     public ActionInputs()
     {
         var props = this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.FlattenHierarchy);
-        foreach(var prop in props)
+        foreach (var prop in props)
         {
             var attrs = prop.GetCustomAttributesData();
             var inputName = attrs.FirstOrDefault(a => a.AttributeType == typeof(ActionInputName))?.ConstructorArguments[0].Value as String;
-            if(inputName is not null && Environment.GetEnvironmentVariable("INPUT_" + inputName.ToUpper()) is string val2)
+            if (inputName is not null)
             {
-                prop.SetValue(this, val2);
+                // if the action is run using "env:" the inputs are in env vars like this:    
+                if (Environment.GetEnvironmentVariable(inputName) is string val1)
+                    prop.SetValue(this, val1);
+
+                // If the action is run using "with:" the inputs are in env vars like this:
+                if (Environment.GetEnvironmentVariable("INPUT_" + inputName.ToUpper()) is string val2)
+                    prop.SetValue(this, val2);
+
             }
         }
     }

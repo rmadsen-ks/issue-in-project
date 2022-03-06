@@ -6,7 +6,7 @@ TBD
 
 Add a workflow like below to `.github/workflows/issue-in-project.yaml`:
 
-```
+```yaml
 on:
   issues:
     types: [closed]
@@ -19,11 +19,18 @@ permissions:
 jobs:
   issue-in-project:
     runs-on: ubuntu-latest
-    name: issue-in-project
     steps:
-      - name: Run comment action
-        uses: AsgerIversen/issue-in-project
+      - uses: AsgerIversen/issue-in-project
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-closed-to-project: AsgerIversen/issue-in-project/1 
+          issue-closed-to-column: start
+```
+or for better performance (not building the docker image each time):
+```yaml
+    steps:
+      - uses: docker://ghcr.io/asgeriversen/issue-in-project:v1
+        env:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-closed-to-project: AsgerIversen/issue-in-project/1 
           issue-closed-to-column: start
