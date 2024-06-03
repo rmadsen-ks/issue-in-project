@@ -40,7 +40,7 @@ class Github
     {
         string owner = projectName.Split("/")[0];
         string repo = projectName.Split("/")[1];
-        int id = int.Parse(projectName.Split("/")[2]);
+        long id = long.Parse(projectName.Split("/")[2]);
         var projects = Github.Client.Repository.Project.GetAllForRepository(owner, repo).Result;
         return projects.FirstOrDefault(p => p.Number == id);
     }
